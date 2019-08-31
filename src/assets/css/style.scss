@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'MyFont';
+  src:  url('./font/iconfont.woff') format('woff'),
+        url('./font/iconfont.woff2') format('woff2');
+   font-weight: 600;
+   font-style: normal;
+}
+
+.hello {
+  color: black;
+  font-family: 'MyFont';
+  //background: url('../img/mountain.jpg');
+}
