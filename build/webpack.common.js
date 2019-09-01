@@ -11,7 +11,7 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    index: './src/main.js',
+    index: './src/main.ts',
   },
   devtool: 'inline-source-map',
   output: {
@@ -30,12 +30,12 @@ module.exports = {
     }
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.js', '.ts', '.vue', '.json'],
     alias: {
       vue$: 'vue/dist/vue.esm.js',
-      '@': resolve('src'),
-      src: path.resolve(__dirname, 'src'),
-      assets: path.resolve(__dirname, 'src/assets'),
+      '@': resolve('../src'),
+      src: path.resolve(__dirname, '../src'),
+      assets: path.resolve(__dirname, '../src/assets'),
     }
   },
   module: {
@@ -61,6 +61,20 @@ module.exports = {
         },
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/
+      },
+      // { // 加入对文件的ts识别
+      //   test: /.ts$/,
+      //   exclude: /node_modules/,
+      //   enforce: 'pre',
+      //   loader: 'tslint-loader'
+      // },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        exclude: /node_modules/,
+        options: {
+          appendTsSuffixTo: [/\.vue$/],
+        }
       },
       {
         test: /\.css$/,

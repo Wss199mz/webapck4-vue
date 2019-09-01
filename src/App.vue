@@ -17,19 +17,19 @@
 </template>
 
 <script lang="ts">
-  export default {
-    components: {
-    },
-    data () {
+  import { Component, Vue } from 'vue-property-decorator';
+  @Component({
+    name: 'App'
+  })
+  export default class App extends Vue {
+    private data () {
       return {
         title: 'hello word',
         content: 'webpack4 搭建vue环境',
       }
-    },
-    methods: {
-      onpageshow() {
-        alert(1123)
-      }
+    }
+    onpageshow() {
+      alert(1123)
     }
   }
 </script>
