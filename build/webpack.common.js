@@ -5,9 +5,16 @@ const webpack = require('webpack');
 const TerserJSPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
+function assetsPath (_path) {
+  return path.posix.join('static', _path)
+}
+
+const devMode = process.env.NODE_ENV === 'development';
+
 
 module.exports = {
   entry: {
@@ -15,7 +22,7 @@ module.exports = {
   },
   devtool: 'inline-source-map',
   output: {
-    filename: 'static/js/[name].bundle.js',
+    filename: 'static/js/[hash][name].bundle.js',
     // chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, '../dist/'),
     publicPath: '',
@@ -26,7 +33,20 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({})
     ],
     splitChunks: {
-      chunks: 'all'
+      chunks: 'all',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      maxInitialRequests: 3,
+      name: true,
+      cacheGroups: {
+        styles: {
+          name: 'style',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true
+        }
+      }
     }
   },
   resolve: {
@@ -62,12 +82,6 @@ module.exports = {
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/
       },
-      // { // 加入对文件的ts识别
-      //   test: /.ts$/,
-      //   exclude: /node_modules/,
-      //   enforce: 'pre',
-      //   loader: 'tslint-loader'
-      // },
       {
         test: /\.tsx?$/,
         loader: 'ts-loader',
@@ -85,7 +99,9 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          process.env.NODE_ENV !== 'production' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: devMode ? 'style-loader': MiniCssExtractPlugin.loader
+          },
           "css-loader", // 将 CSS 转化成 CommonJS 模块
           "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
         ]
@@ -97,16 +113,21 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1024, //表示图片最大为1024KB
-              name: '[name].[ext]'  // 生成的文件名
+              name: assetsPath('img/[name].[hash:7].[ext]')  // 生成的文件名
             }
           }
         ]
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
-        use: [
-          'file-loader'
-        ]
+        loader: 'file-loader',
+        options: {
+          limit: 80000,
+          name: '[name].[hash:8].[ext]',
+          publicPath: './public/fonts',
+          outputPath: '/fonts'
+        }
+
       },
       {
         test: /\.(csv|tsv)$/,
@@ -129,6 +150,11 @@ module.exports = {
       filename: 'index.html',
       template: './src/index.html',
       inject: true
+    }),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: devMode ? '[name].css' : '[name].[hash].css',
+      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
     })
   ]
 };

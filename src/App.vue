@@ -1,35 +1,18 @@
 <template>
   <div>
-    <h3 class="title">{{title}}</h3>
-    <p class="content">{{content}}</p>
-    <div class="goddess">
-      <div class="right">
-        <h4 class="right__h4">background引入图片</h4>
-        <div class="right__img"></div>
-      </div>
-      <div class="left">
-        <h4 class="left__h4"></h4>
-        <img class="left__img" src="./assets/img/mountain.jpg" />
-      </div>
-      <div @click="onpageshow">asdf</div>
-    </div>
+    <router-view />
   </div>
 </template>
 
 <script lang="ts">
+  declare const window: any
   import { Component, Vue } from 'vue-property-decorator';
   @Component({
     name: 'App'
   })
   export default class App extends Vue {
-    private data () {
-      return {
-        title: 'hello word',
-        content: 'webpack4 搭建vue环境',
-      }
-    }
-    onpageshow() {
-      alert(1123)
+    mounted() {
+      window.resizeTo = 123
     }
   }
 </script>
