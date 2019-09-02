@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <img :src="fullName" alt="" v-if="fullName">
+  <div class="icon-template" :style="{ height: height, lineHeight: height }">
+    <img :src="fullName" alt="" v-if="fullName" :style="{ width: width, height: height }">
   </div>
 </template>
 
@@ -13,6 +13,10 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 export default class Icon extends Vue {
   @Prop({ default: 'qita' })
   name!: string;
+  @Prop({ default: 'auto' })
+  width!: any;
+  @Prop({ default: 'auto' })
+  height!: any;
   get fullName() {
     return require(`../assets/icons/svg/${this.name}`);
   }
@@ -20,11 +24,14 @@ export default class Icon extends Vue {
 </script>
 
 <style scoped lang="scss">
-._icon {
-  width: 1em;
-  height: 1em;
-  vertical-align: -0.15em;
-  fill: currentColor;
-  overflow: hidden;
-}
+  .icon-template {
+    text-align: center;
+    ._icon {
+      width: 1em;
+      height: 1em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+  }
 </style>

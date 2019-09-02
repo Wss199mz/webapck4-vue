@@ -100,7 +100,12 @@ module.exports = {
         test: /\.scss$/,
         use: [
           {
-            loader: devMode ? 'style-loader': MiniCssExtractPlugin.loader
+            loader: devMode ? 'style-loader': MiniCssExtractPlugin.loader,
+            options: {
+              name: assetsPath('css/[name].[hash].[ext]'),  // 生成的文件名
+              publicPath: '../dist/static/css',
+              outputPath: '/css'
+            }
           },
           "css-loader", // 将 CSS 转化成 CommonJS 模块
           "sass-loader" // 将 Sass 编译成 CSS，默认使用 Node Sass
@@ -124,7 +129,7 @@ module.exports = {
         options: {
           limit: 80000,
           name: '[name].[hash:8].[ext]',
-          publicPath: './public/fonts',
+          publicPath: '../dist/static/fonts',
           outputPath: '/fonts'
         }
 
@@ -153,8 +158,8 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new MiniCssExtractPlugin({
-      filename: devMode ? '[name].css' : '[name].[hash].css',
-      chunkFilename: devMode ? '[id].css' : '[id].[hash].css',
+      filename: devMode ? 'static/css/[name].css' : 'static/css/[name].[hash].css',
+      chunkFilename: devMode ? 'static/css/[id].css' : 'static/css/[id].[hash].css',
     })
   ]
 };

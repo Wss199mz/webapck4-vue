@@ -17,6 +17,7 @@
 
 <style scoped lang="scss">
   .test {
+    height: 100%;
     background-color: aquamarine;
   }
 </style>
