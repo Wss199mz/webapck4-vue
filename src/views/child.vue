@@ -1,27 +1,20 @@
 <template>
   <div class="homepage-content">
     <div class="nav">
+      <span style="color: #fff">{{bodyPosition}}</span>
       <ZtoNav />
     </div>
     <div class="content">
       <div class="homepage" :style="{ transform: `translateY(${translateY})` }">
-        homepage
-        <el-button type="primary">阿萨德</el-button>
-        <div @click="down" class="down">
+        <video src="http://chimee.org/vod/1.mp4" loop="loop" autoplay="autoplay" muted="muted" class="bgVideo"></video>
+        <div @click="down" class="down" id="down">
           <Icon class="icon down-icon" name="down.png" width="21px" height="34px"></Icon>
           <Icon class="icon down-direction1" name="down1.png" width="15px" height="9px"></Icon>
           <Icon class="icon down-direction2" name="down2.png" width="15px" height="9px"></Icon>
         </div>
         <div class="mask"></div>
-        <div class="nextPage" :style="{ height: height }">
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
-          <div>第二页第二页第二页</div>
+        <div class="nextPage" :style="{ height: `${height}px` }">
+          <NextPage :initIndex="initIndex" ref="nextPages"/>
         </div>
       </div>
     </div>
@@ -30,12 +23,14 @@
 
 <script lang="ts">
   import { util } from '../utils/index'
-  import {Component, Vue, Prop} from 'vue-property-decorator'
+  import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
   import ZtoNav from '../components/nav/'
-
+  import NextPage from './nextPage'
+  import AppStore from '../store/modules/app'
   @Component({
     components: {
-      ZtoNav
+      ZtoNav,
+      NextPage
     }
   })
   export default class Home extends Vue {
@@ -45,40 +40,66 @@
     translateY: any = 0
     direction: string = ''
     isDown: boolean = false
-    height: string = '0px'
+    height: number = 0
+    isFirst: boolean = true
+    initIndex: boolean = false
+    $refs: any
     mounted() {
       window.addEventListener('mousewheel',this.handleScroll,false)
     }
+    private get bodyPosition () {
+      return AppStore.bodyPosition
+    }
     down() {
       this.translateY = '-100%'
-      this.height = '1000px'
+      this.height = this.$refs.nextPages.$el.clientHeight
+      this.initIndex = !this.initIndex
     }
     up() {
       this.translateY = 0
-      this.height = '0px'
+      this.height = 0
+      this.isFirst = true
     }
     handleScroll (e: any) {
-      if (!this.isDown && e.deltaY > 20 && this.height === '0px') {
+      if (this.bodyPosition === 'fixed') { // 有蒙层时禁止滚动页面
+        return false
+      }
+      let scrollTop = document.documentElement!.scrollTop
+      if (!this.isDown && e.deltaY > 20 && this.height === 0) { // 向下滚动
         this.direction = 'up'
         util.throttle(this.addResizeNum, 100)
-      } else if (!this.isDown && e.deltaY < -20 && this.height === '1000px') {
+      } else if (!this.isDown && e.deltaY < -20 && this.height !== 0 && scrollTop === 0) { // 向上滚动
+        if (this.isFirst) {
+          setTimeout(() => {
+            this.isFirst = false
+          }, 100)
+          return false
+        }
         this.direction = 'down'
         util.throttle(this.addResizeNum, 100)
+      } else if (scrollTop > 0 && this.direction === 'up' && !this.isFirst) { // 取消第一次向上滚动
+        this.isFirst = true
       }
     }
     addResizeNum () {
-      if (this.isDown) {
+      if (this.isDown) { // 滚动中停止执行
         return false
       }
       this.isDown = true
-      if (this.direction === 'up') {
-        this.down()
-      } else {
-        this.up()
-      }
+      this.direction === 'up' ? this.down() : this.up()
       setTimeout(() => {
         this.isDown = false
       }, 1000)
+    }
+    @Watch('bodyPosition', { immediate: false, deep: true })
+    position() {
+      if (this.bodyPosition === 'fixed') {
+        document.body.style.position = "fixed";
+        document.body.style.top = 0 + "px";
+      } else {
+        document.body.style.position = "";
+        document.body.style.top = "";
+      }
     }
   }
 </script>
@@ -100,6 +121,11 @@
         height: calc(100vh - 80px);
         width: 100%;
         transition: all .7s;
+        .bgVideo {
+          width: 100%;
+          height:calc(100vh - 83px);
+          object-fit:fill;
+        }
         .mask {
           position: absolute;
           top: 0;
@@ -110,7 +136,7 @@
         }
         .down {
           position: absolute;
-          bottom: 10%;
+          bottom: -18px;
           left: 50%;
           height: 40px;
           cursor: pointer;

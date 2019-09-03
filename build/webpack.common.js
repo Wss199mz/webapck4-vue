@@ -103,8 +103,8 @@ module.exports = {
             loader: devMode ? 'style-loader': MiniCssExtractPlugin.loader,
             options: {
               name: assetsPath('css/[name].[hash].[ext]'),  // 生成的文件名
-              publicPath: '../dist/static/css',
-              outputPath: '/css'
+              publicPath: '',
+              outputPath: 'static/css'
             }
           },
           "css-loader", // 将 CSS 转化成 CommonJS 模块
@@ -118,7 +118,8 @@ module.exports = {
             loader: 'url-loader',
             options: {
               limit: 1024, //表示图片最大为1024KB
-              name: assetsPath('img/[name].[hash:7].[ext]')  // 生成的文件名
+              name: assetsPath('img/[name].[hash:7].[ext]'),  // 生成的文件名
+              publicPath:'../../'
             }
           }
         ]
@@ -129,8 +130,8 @@ module.exports = {
         options: {
           limit: 80000,
           name: '[name].[hash:8].[ext]',
-          publicPath: '../dist/static/fonts',
-          outputPath: '/fonts'
+          publicPath: '',
+          outputPath: 'static/fonts'
         }
 
       },

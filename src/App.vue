@@ -1,5 +1,5 @@
 <template>
-  <transition :name="transitionName">
+  <transition :name="transitionName" mode="in-out">
     <router-view class="child-view"/>
   </transition>
 </template>
@@ -37,7 +37,7 @@
 
 <style lang="scss" scoped>
   .child-view {
-    transition: all 0.2s ease;
+    transition: all 1s;
   }
 
   .slide-left-enter, .slide-right-leave-active {
@@ -51,7 +51,7 @@
   }
   
   .fade-enter, .fade-leave-active {
-    opacity: 0
+    /*opacity: 0*/
   }
   
   .title {
