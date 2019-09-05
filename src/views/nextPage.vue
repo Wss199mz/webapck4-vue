@@ -12,7 +12,7 @@
         <img src="../assets/img/paly.png" class="play" alt="" />
         <p class="company-video">企业介绍视频</p>
       </div>
-      <div class="profile-txt">
+      <div :class="{ profileTxt: true, active: profileTxtActive }" ref="profileTxt">
         <p class="company">
           <img src="../assets/img/CompanyProfile.png" alt="" />
         </p>
@@ -38,16 +38,20 @@
       </div>
     </div>
     <ProductModules />
+    <Particles />
   </div>
 </template>
 
 <script lang="ts">
-  import {Component, Vue, Prop, Watch} from 'vue-property-decorator';
+  import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
   import ProductModules from './components/productModules'
+  import Particles from './components/particles'
+  import { util } from '../utils/index'
 
   @Component({
     components: {
-      ProductModules
+      ProductModules,
+      Particles
     }
   })
   export default class Home extends Vue {
@@ -57,11 +61,16 @@
     initIndex!: boolean
     isShowCarousel: boolean = true
     isShowMask: boolean = false
+    profileTxtActive: boolean = false
     $refs: any
     private data() {
       return {};
     }
     mounted () {
+      window.addEventListener('scroll', this.updateAnimate);
+    }
+    updateAnimate () {
+      this.profileTxtActive = util.eleScrollTop(document.documentElement, this.$refs.profileTxt)
     }
     openMask () {
       this.isShowMask = true
@@ -74,8 +83,9 @@
     @Watch('initIndex', { immediate: false, deep: true })
     initItem(oldRoute: any, newRoute: any) {
       this.isShowCarousel = false
+      this.profileTxtActive = false
       this.$nextTick(() => {
-        this.isShowCarousel = true
+        this.isShowCarousel = this.profileTxtActive = true
       })
     }
   }
@@ -118,38 +128,57 @@
         color:rgba(255,255,255,1);
       }
     }
-    .profile-txt {
+    .profileTxt {
       display: inline-block;
       vertical-align: top;
       margin-left: 80px;
       padding-top: 10px;
       text-align: left;
+      &.active {
+        .company, .com, div.line, .tit, .tit, .txt, .more {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
       .company {
+        transition: all 2s ease;
         color: #C9D1D7;
+        transform: translateY(80px);
+        opacity: 0;
       }
       .com {
+        transition: all 2s ease;
         font-size:22px;
         font-family:Microsoft YaHei;
         font-weight:400;
         color:rgba(255,255,255,1);
         margin: 12px 0 32px 0;
+        transform: translateY(80px);
+        opacity: 0;
       }
       div.line {
+        transition: all 2s ease;
         width:55px;
         height:3px;
         background:rgba(0,172,246,1);
         border: 1px transparent;
         border-radius:3px;
         margin-bottom: 46px;
+        transform: translateY(80px);
+        opacity: 0;
       }
       .tit {
+        transition: all 2s ease;
         font-size:22px;
         font-family:DFPYaSongW9-GB;
         font-weight:400;
         color:rgba(255,255,255,1);
         margin-bottom: 32px;
+        transform: translateY(80px);
+        opacity: 0;
       }
       .txt {
+        transition: all 2s ease;
         width: 580px;
         font-size:14px;
         font-family:Microsoft YaHei;
@@ -157,10 +186,15 @@
         color:rgba(129,139,146,1);
         padding-bottom: 40px;
         line-height: 24px;
+        transform: translateY(80px);
+        opacity: 0;
       }
       .more {
+        transition: all 2s ease;
         position: relative;
         cursor: pointer;
+        transform: translateY(80px);
+        opacity: 0;
         .txt {
           position: absolute;
           z-index: 1;

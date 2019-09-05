@@ -45,7 +45,7 @@
     initIndex: boolean = false
     $refs: any
     mounted() {
-      window.addEventListener('mousewheel',this.handleScroll,false)
+      window.addEventListener('mousewheel', this.handleScroll, false)
     }
     private get bodyPosition () {
       return AppStore.bodyPosition
@@ -72,7 +72,7 @@
         if (this.isFirst) {
           setTimeout(() => {
             this.isFirst = false
-          }, 100)
+          }, 300)
           return false
         }
         this.direction = 'down'
@@ -89,7 +89,7 @@
       this.direction === 'up' ? this.down() : this.up()
       setTimeout(() => {
         this.isDown = false
-      }, 1000)
+      }, 300)
     }
     @Watch('bodyPosition', { immediate: false, deep: true })
     position() {

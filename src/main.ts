@@ -5,7 +5,8 @@ import store from './store'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/css/index.scss'
-
+import VueParticles from 'vue-particles'
+Vue.use(VueParticles)
 import * as filters from './filters'
 Object.keys(filters).forEach((key: string) => {
   Vue.filter(key, (filters as any)[key])

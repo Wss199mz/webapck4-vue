@@ -21,5 +21,12 @@ export const util = {
     throttleTime = setTimeout(() => { // 只执行最后一个定时器的 结果
       fn()
     }, time)
+  },
+  eleScrollTop (windows: any, ele: any) {
+    if (ele.offsetTop + ele.clientHeight <= windows.clientHeight + windows.scrollTop) {
+      return true
+    } else {
+      return false
+    }
   }
 }

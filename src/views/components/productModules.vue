@@ -116,10 +116,21 @@
         }
         &:hover {
           & {
-            background-image: url('../../assets/img/bg-module.png');
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
+          }
+          &:nth-child(1) {
+            background-image: url('../../assets/img/banner-item1.png');
+          }
+          &:nth-child(2) {
+            background-image: url('../../assets/img/banner-item2.png');
+          }
+          &:nth-child(3) {
+            background-image: url('../../assets/img/banner-item3.png');
+          }
+          &:nth-child(4) {
+            background-image: url('../../assets/img/banner-item4.png');
           }
           .modulesitem {
             transform: translateY(-60%);
