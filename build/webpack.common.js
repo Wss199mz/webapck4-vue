@@ -119,7 +119,8 @@ module.exports = {
             options: {
               limit: 1024, //表示图片最大为1024KB
               name: assetsPath('img/[name].[hash:7].[ext]'),  // 生成的文件名
-              publicPath:'../../'
+              publicPath: '/',
+              outputPath: ''
             }
           }
         ]
