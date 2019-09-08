@@ -8,22 +8,14 @@
         </div>
         <div class="module-txt">
           <div>
-            <p class="num">30,100</p>
-            <p>支持网点</p>
-          </div>
-          <div>
-            <p class="num">98.32%</p>
-            <p>覆盖区县</p>
-          </div>
-          <div>
-            <p class="num">30万+</p>
-            <p>服务中通人</p>
+            <p class="num">85.2亿</p>
+            <p>2018年业务量达到85.2亿</p>
           </div>
         </div>
       </li>
       <li>
         <div class="modulesitem">
-          <img src="../../assets/img/item2.png" alt="">
+          <img src="../../assets/img/item3.png" alt="">
           <p>覆盖面</p>
         </div>
         <div class="module-txt">
@@ -43,21 +35,21 @@
       </li>
       <li>
         <div class="modulesitem">
-          <img src="../../assets/img/item3.png" alt="">
+          <img src="../../assets/img/item2.png" alt="">
           <p>运输环节</p>
         </div>
         <div class="module-txt">
           <div>
-            <p class="num">30,100</p>
-            <p>支持网点</p>
+            <p class="num">87</p>
+            <p>分拣中心</p>
           </div>
           <div>
-            <p class="num">98.32%</p>
-            <p>覆盖区县</p>
+            <p class="num">5,550+</p>
+            <p>干线车辆</p>
           </div>
           <div>
-            <p class="num">30万+</p>
-            <p>服务中通人</p>
+            <p class="num">2,220+</p>
+            <p>干线线路</p>
           </div>
         </div>
       </li>
@@ -68,16 +60,16 @@
         </div>
         <div class="module-txt">
           <div>
-            <p class="num">30,100</p>
-            <p>支持网点</p>
+            <p class="num">1,100</p>
+            <p>研发团队</p>
           </div>
           <div>
-            <p class="num">98.32%</p>
-            <p>覆盖区县</p>
+            <p class="num">1111</p>
+            <p>研发投入</p>
           </div>
           <div>
-            <p class="num">30万+</p>
-            <p>服务中通人</p>
+            <p class="num">3PB</p>
+            <p>大数据存储</p>
           </div>
         </div>
       </li>

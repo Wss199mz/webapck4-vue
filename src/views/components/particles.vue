@@ -1,21 +1,5 @@
 <template>
   <div class="particles">
-    <vue-particles
-      color="#fff"
-      :particleOpacity="0.7"
-      :particlesNumber="160"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#82b2d5"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.7"
-      :linesDistance="150"
-      :moveSpeed="3"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="false">
-    </vue-particles>
     <div class="manage">
       <CircleTemplate :width="106" bgColor="rgba(71,178,208,1)"/>
       <span class="txt-module">管理</span>
@@ -63,6 +47,10 @@
   export default class Home extends Vue {
     private data() {
       return {};
+    }
+    $refs: any;
+    mounted() {
+      this.$nextTick(() => {});
     }
   }
 </script>

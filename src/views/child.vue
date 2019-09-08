@@ -1,7 +1,6 @@
 <template>
   <div class="homepage-content">
     <div class="nav">
-      <span style="color: #fff">{{bodyPosition}}</span>
       <ZtoNav />
     </div>
     <div class="content">
@@ -45,7 +44,7 @@
     initIndex: boolean = false
     $refs: any
     mounted() {
-      window.addEventListener('mousewheel', this.handleScroll, false)
+      window.addEventListener('mousewheel', this.handleScroll, false);
     }
     private get bodyPosition () {
       return AppStore.bodyPosition

@@ -28,4 +28,29 @@ module.exports = merge(common, {
     //   })
     // } // mock接口
   },
-});
+})
+// module.exports = new Promise((resolve, reject) => {
+//   portfinder.basePort = process.env.PORT || devWebpackConfig.devServer.port
+//   portfinder.getPort((err, port) => {
+//     if (err) {
+//       reject(err)
+//     } else {
+//       // publish the new Port, necessary for e2e tests
+//       process.env.PORT = port
+//       // add port to devServer config
+//       devWebpackConfig.devServer.port = port
+//
+//       // Add FriendlyErrorsPlugin
+//       devWebpackConfig.plugins.push(
+//         new FriendlyErrorsPlugin({
+//           compilationSuccessInfo: {
+//             messages: [`Your application is running here: http://0.0.0.0:${port}`]
+//           },
+//           onErrors: createNotifierCallback() || undefined
+//         })
+//       )
+//
+//       resolve(devWebpackConfig)
+//     }
+//   })
+// })

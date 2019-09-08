@@ -11,9 +11,6 @@
     name: 'App'
   })
   export default class App extends Vue {
-    mounted() {
-      window.resizeTo = 123
-    }
     transitionName: string = ''
     historyList: any = []
     @Watch('$route', { immediate: false, deep: true })

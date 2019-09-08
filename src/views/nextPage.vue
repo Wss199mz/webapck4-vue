@@ -2,7 +2,7 @@
   <div>
     <el-carousel trigger="click" height="150px" v-if="isShowCarousel">
       <el-carousel-item v-for="item in 4" :key="item">
-        <img src="../assets/img/banner-loop1.png" alt="" />
+        <img src="../assets/img/banner-loop1.png" alt="" style="width: 100%;height: 100%"/>
       </el-carousel-item>
     </el-carousel>
     
@@ -29,7 +29,7 @@
       </div>
     </div>
     
-    <div v-if="isShowMask" style="width:100%;height: 100%;overflow: hidden" @touchmove.prevent>
+    <div v-if="isShowMask" style="width:100%;height: 100%;overflow: hidden">
       <div class="mask-video">
         <div class="play-video">
           <div class="close" @click="closeVideo"></div>
@@ -37,8 +37,11 @@
         </div>
       </div>
     </div>
+    
     <ProductModules />
     <Particles />
+    <Strength />
+    <Article />
   </div>
 </template>
 
@@ -46,12 +49,16 @@
   import {Component, Vue, Prop, Watch} from 'vue-property-decorator'
   import ProductModules from './components/productModules'
   import Particles from './components/particles'
+  import Strength from './components/strength'
+  import Article from './components/article'
   import { util } from '../utils/index'
 
   @Component({
     components: {
       ProductModules,
-      Particles
+      Particles,
+      Strength,
+      Article
     }
   })
   export default class Home extends Vue {

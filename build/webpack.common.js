@@ -18,7 +18,7 @@ const devMode = process.env.NODE_ENV === 'development';
 
 module.exports = {
   entry: {
-    index: './src/main.ts',
+    index: ['babel-polyfill','./src/main.ts'] ,
   },
   devtool: 'inline-source-map',
   output: {
@@ -74,7 +74,8 @@ module.exports = {
             ],
             plugins: [
               [
-                '@babel/plugin-transform-runtime'
+                '@babel/plugin-transform-runtime',
+                "@babel/plugin-transform-classes"
               ]
             ]
           },
